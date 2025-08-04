@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciador de Tarefas</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border-bottom: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #ecf0f1; }
+        .actions a { text-decoration: none; padding: 5px 10px; border-radius: 4px; margin-right: 5px; color: #fff; }
+        .edit-link { background-color: #3498db; }
+        .remove-link { background-color: #e74c3c; }
+        .button-group { margin-top: 20px; }
+        .button-group a { text-decoration: none; color: #fff; padding: 10px 15px; border-radius: 5px; }
+        .add-button { background-color: #2ecc71; }
+        .remove-completed-button { background-color: #f39c12; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gerenciador de Tarefas</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Início</th>
+                    <th>Término</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tarefa in tarefas %}
+                <tr>
+                    <td>{{ tarefa.descricao }}</td>
+                    <td>{{ tarefa.data_inicio|date:"d/m/Y" }}</td>
+                    <td>{{ tarefa.data_termino|date:"d/m/Y" }}</td>
+                    <td>{{ tarefa.status }}</td>
+                    <td class="actions">
+                        <a href="{% url 'editar_tarefa' tarefa.id %}" class="edit-link">Editar</a>
+                        <a href="{% url 'remover_tarefa' tarefa.id %}" class="remove-link" onclick="return confirm('Tem certeza que deseja remover esta tarefa?');">Remover</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">Nenhuma tarefa cadastrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="button-group">
+            <a href="{% url 'adicionar_tarefa' %}" class="add-button">Adicionar Nova Tarefa</a>
+            <a href="{% url 'remover_concluidas' %}" class="remove-completed-button">Remover Concluídas</a>
+        </div>
+    </div>
+</body>
+</html>

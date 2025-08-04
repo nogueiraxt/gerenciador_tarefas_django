@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titulo }}</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        form p { display: flex; flex-direction: column; margin-bottom: 15px; }
+        form label { margin-bottom: 5px; font-weight: bold; }
+        form input, form select { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn { cursor: pointer; border: none; padding: 10px 20px; border-radius: 5px; color: #fff; font-size: 16px; }
+        .save-btn { background-color: #2ecc71; }
+        .back-link { display: inline-block; margin-top: 20px; color: #3498db; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ titulo }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn save-btn">Salvar</button>
+        </form>
+        <a href="{% url 'listar_tarefas' %}" class="back-link">&larr; Voltar para a lista</a>
+    </div>
+</body>
+</html>
